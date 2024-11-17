@@ -20,7 +20,7 @@ public class BulletMovement : MonoBehaviour
         }
 
         // Registrar la bala al iniciar
-        BulletManager.AddBullet();
+        BulletManager.AddBossBullet();
     }
 
     void Update()
@@ -59,22 +59,22 @@ public class BulletMovement : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        // Remover la bala antes de destruirla
-        RemoveBullet();
-        Destroy(gameObject);
+        Destroy(gameObject); // Destruir la bala
     }
+
 
     private void OnDestroy()
     {
-        // Asegurar que la bala se remueva del contador al ser destruida
-        RemoveBullet();
+        RemoveBullet(); // Asegurar la eliminación correcta del contador
     }
+
+
 
     private void RemoveBullet()
     {
         if (!isRemoved)
         {
-            BulletManager.RemoveBullet();
+            BulletManager.RemoveBossBullet();
             isRemoved = true; // Marcar como eliminada
         }
     }
