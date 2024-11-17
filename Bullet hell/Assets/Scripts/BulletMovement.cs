@@ -3,6 +3,7 @@ using UnityEngine;
 public class BulletMovement : MonoBehaviour
 {
     public float speed = 10f; // Velocidad de la bala
+    public float damage = 10f; // Daño que inflige la bala
     private Vector3 direction; // Dirección de movimiento
     private Collider bulletCollider; // Referencia al Collider de la bala
     private bool isRemoved = false; // Bandera para evitar múltiples colisiones
@@ -12,10 +13,10 @@ public class BulletMovement : MonoBehaviour
         // Obtener el componente Collider de la bala
         bulletCollider = GetComponent<Collider>();
 
-        // Desactivar el Collider para evitar colisiones entre las balas
+        // Asegurarse de que el Collider esté habilitado
         if (bulletCollider != null)
         {
-            bulletCollider.enabled = false; // Desactivar el Collider
+            bulletCollider.enabled = true; // Habilitar el Collider
         }
 
         // Registrar la bala al iniciar
@@ -26,6 +27,34 @@ public class BulletMovement : MonoBehaviour
     {
         // Mover la bala en la dirección especificada
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Colisión detectada con: " + other.gameObject.name);
+
+        // Verificar si el objeto con el que colisionó es el jugador
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("¡La bala tocó al jugador!");
+            // Infligir daño al jugador
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+
+            // Destruir la bala después del impacto
+            Destroy(gameObject);
+        }
+
+        // Verificar si el objeto con el que colisionó es una bala del jugador
+        if (other.CompareTag("PlayerBullet"))
+        {
+            // Destruir ambas balas al colisionar
+            Destroy(other.gameObject);  // Destruir la bala del jugador
+            Destroy(gameObject);  // Destruir la bala del jefe
+        }
     }
 
     private void OnBecameInvisible()

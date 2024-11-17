@@ -604,6 +604,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &398107674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398107670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc6727fbfcb45b4384b3faf1512448d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
 --- !u!1 &406959421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,6 +1184,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c82e4d6a10048f841bef4cf5234774de, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: c82e4d6a10048f841bef4cf5234774de, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1181,6 +1202,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82e4d6a10048f841bef4cf5234774de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 398107673}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82e4d6a10048f841bef4cf5234774de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 398107674}
   m_SourcePrefab: {fileID: 100100000, guid: c82e4d6a10048f841bef4cf5234774de, type: 3}
 --- !u!1 &631625986
 GameObject:
@@ -1277,6 +1301,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9798d6390dd8b9b40be69af331c91809, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 9798d6390dd8b9b40be69af331c91809, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1284,6 +1316,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9798d6390dd8b9b40be69af331c91809, type: 3}
       insertIndex: -1
       addedObject: {fileID: 655970722}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9798d6390dd8b9b40be69af331c91809, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 655970724}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9798d6390dd8b9b40be69af331c91809, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 655970725}
   m_SourcePrefab: {fileID: 100100000, guid: 9798d6390dd8b9b40be69af331c91809, type: 3}
 --- !u!1 &655970721 stripped
 GameObject:
@@ -1306,6 +1344,32 @@ MonoBehaviour:
   fireRate: 0.15
   bulletSpeed: 10
   numberOfBullets: 10
+--- !u!114 &655970724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655970721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a7e66cb4b27764ca1ca120e47bd2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+--- !u!114 &655970725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655970721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7b403ca5c97184f992de40f4df80d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &663022039
 GameObject:
   m_ObjectHideFlags: 0

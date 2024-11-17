@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     // Velocidad del vehículo
     public float speed = 20.0f;
+    public float slowSpeedMultiplier = 0.5f;  // Multiplicador de velocidad para cuando se presiona Shift
     public GameObject bulletPrefab;  // Prefab de la bala
     public Transform bulletSpawnPoint; // Punto desde donde se dispara la bala
     public float bulletSpeed = 10f; // Velocidad de la bala
@@ -14,13 +15,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Detectar si la tecla Shift está presionada
+        bool isShiftPressed = Input.GetKey(KeyCode.LeftShift);
+
+        // Ajustar la velocidad dependiendo de si Shift está presionado
+        float currentSpeed = isShiftPressed ? speed * slowSpeedMultiplier : speed;
+
         // Mover el vehículo de izquierda a derecha
         float horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * currentSpeed);
 
         // Mover el vehículo de arriba a abajo
         float verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * speed);
+        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * currentSpeed);
 
         // Disparar al presionar la tecla K, respetando el cooldown
         if (Input.GetKeyDown(KeyCode.K) && Time.time >= lastShootTime + shootCooldown)

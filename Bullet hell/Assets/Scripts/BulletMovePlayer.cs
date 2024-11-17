@@ -18,6 +18,25 @@ public class BulletMovePlayer : MonoBehaviour
         speed = newSpeed;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        // Verificar si la bala del jugador colisiona con el jefe
+        if (other.CompareTag("Enemy"))
+        {
+            // Mostrar mensaje de colisión
+            Debug.Log("¡La bala del jugador tocó al jefe!");
+            // Aplicar daño al jefe
+            BossController bossController = other.GetComponent<BossController>();
+            if (bossController != null)
+            {
+                bossController.TakeDamage(10f); // Ajusta el valor de daño
+            }
+
+            // Destruir la bala del jugador
+            Destroy(gameObject); // Destruir la bala
+        }
+    }
+
     private void OnBecameInvisible()
     {
         // Destruir la bala cuando salga de la pantalla
