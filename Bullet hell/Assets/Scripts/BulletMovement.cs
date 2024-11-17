@@ -5,7 +5,7 @@ public class BulletMovement : MonoBehaviour
     public float speed = 10f; // Velocidad de la bala
     private Vector3 direction; // Dirección de movimiento
     private Collider bulletCollider; // Referencia al Collider de la bala
-    private bool isRemoved = false; // Bandera para evitar múltiples remociones
+    private bool isRemoved = false; // Bandera para evitar múltiples colisiones
 
     private void Start()
     {
