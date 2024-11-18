@@ -5,13 +5,18 @@ public class BulletMovePlayer : MonoBehaviour
     public float speed = 10f; // Velocidad de la bala
     private Vector3 direction; // Dirección de movimiento
 
+    private void Start()
+    {
+        // Registrar la bala en el BulletManager
+        BulletManager.AddPlayerBullet();
+    }
+
     void Update()
     {
         // Mover la bala en la dirección especificada
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    // Método para establecer la dirección y velocidad
     public void SetDirection(Vector3 newDirection, float newSpeed)
     {
         direction = newDirection.normalized;
@@ -20,26 +25,49 @@ public class BulletMovePlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Verificar si la bala del jugador colisiona con el jefe
+        // Verificamos si la bala tocó un enemigo o un jefe
         if (other.CompareTag("Enemy"))
         {
-            // Mostrar mensaje de colisión
+            // Detectamos que tocó un enemigo normal
+            Debug.Log("¡La bala del jugador tocó un enemigo!");
+
+            // Intentamos obtener el script de salud del enemigo
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(10f);  // Aplica daño al enemigo
+            }
+
+            // Destruir la bala
+            Destroy(gameObject);
+        }
+
+        // Verificamos si la bala tocó un jefe
+        if (other.CompareTag("Boss"))
+        {
+            // Detectamos que tocó un jefe
             Debug.Log("¡La bala del jugador tocó al jefe!");
-            // Aplicar daño al jefe
+
+            // Intentamos obtener el script de salud del jefe
             BossController bossController = other.GetComponent<BossController>();
             if (bossController != null)
             {
-                bossController.TakeDamage(10f); // Ajusta el valor de daño
+                bossController.TakeDamage(10f);  // Aplica daño al jefe
             }
 
-            // Destruir la bala del jugador
-            Destroy(gameObject); // Destruir la bala
+            // Destruir la bala
+            Destroy(gameObject);
         }
     }
 
     private void OnBecameInvisible()
     {
-        // Destruir la bala cuando salga de la pantalla
-        Destroy(gameObject);
+        Destroy(gameObject);  // Destruir la bala cuando se haga invisible
+    }
+
+    private void OnDestroy()
+    {
+        // Notificar al BulletManager que la bala fue destruida
+        BulletManager.RemovePlayerBullet();
     }
 }

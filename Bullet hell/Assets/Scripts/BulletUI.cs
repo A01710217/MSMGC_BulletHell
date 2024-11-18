@@ -3,21 +3,28 @@ using TMPro;
 
 public class BulletUI : MonoBehaviour
 {
-    public TextMeshProUGUI bulletText; // Referencia al objeto de texto
+    public TextMeshProUGUI bossBulletText; // Texto para balas del jefe
+    public TextMeshProUGUI playerBulletText; // Texto para balas del jugador
 
     private void OnEnable()
     {
-        BulletManager.OnBulletCountChanged += UpdateBulletCount; // Suscribirse al evento
+        BulletManager.OnBossBulletCountChanged += UpdateBossBulletCount;
+        BulletManager.OnPlayerBulletCountChanged += UpdatePlayerBulletCount;
     }
 
     private void OnDisable()
     {
-        BulletManager.OnBulletCountChanged -= UpdateBulletCount; // Desuscribirse del evento
+        BulletManager.OnBossBulletCountChanged -= UpdateBossBulletCount;
+        BulletManager.OnPlayerBulletCountChanged -= UpdatePlayerBulletCount;
     }
 
-    private void UpdateBulletCount()
+    private void UpdateBossBulletCount()
     {
-        // Actualizar el texto con la cantidad de balas activas
-        bulletText.text = $"{BulletManager.GetActiveBullets()}";
+        bossBulletText.text = $"{BulletManager.GetBossBullets()}";
+    }
+
+    private void UpdatePlayerBulletCount()
+    {
+        playerBulletText.text = $"{BulletManager.GetPlayerBullets()}";
     }
 }
