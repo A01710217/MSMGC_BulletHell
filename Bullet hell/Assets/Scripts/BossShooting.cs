@@ -22,36 +22,35 @@ public class BossShooting : MonoBehaviour
 
     private void TimeCheck()
     {
-        // Disparo en línea (0-10 minutos)
-        if (TimeManager.Minute == 1 && shootCoroutine == null)
+        // Verifica si la corutina está corriendo antes de intentar iniciar una nueva
+        if (TimeManager.Hour == 1 && TimeManager.Minute == 1 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootLine());
         }
-        if (TimeManager.Minute == 10 && shootCoroutine != null)
+        else if (TimeManager.Minute == 10 && shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
             Debug.Log("Finalizando disparo de línea...");
             shootCoroutine = null;
         }
 
-        // Disparo en círculo (10-20 minutos)
-        if (TimeManager.Minute == 10 && shootCoroutine == null)
+        if (TimeManager.Hour == 1 && TimeManager.Minute == 10 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootCircle());
         }
 
-        if (TimeManager.Minute == 20 && shootCoroutine != null)
+        if (TimeManager.Hour == 1 && TimeManager.Minute == 20 && shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
             Debug.Log("Finalizando disparo en círculo...");
             shootCoroutine = null;
         }
 
-        // Disparo en estrella (20-30 minutos)
-        if (TimeManager.Minute == 20 && shootCoroutine == null)
+        if (TimeManager.Hour == 1 && TimeManager.Minute == 20 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootStar());
         }
+
         if (TimeManager.Minute == 30 && shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
@@ -59,8 +58,7 @@ public class BossShooting : MonoBehaviour
             shootCoroutine = null;
         }
 
-        //Disparo en espiral (30-40 minutos)
-        if (TimeManager.Minute == 30 && shootCoroutine == null)
+        if (TimeManager.Hour == 1 && TimeManager.Minute == 30 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootSpiral());
         }
@@ -71,8 +69,8 @@ public class BossShooting : MonoBehaviour
             Debug.Log("Finalizando disparo en espiral...");
             shootCoroutine = null;
         }
-        
     }
+
 
     private IEnumerator ShootLine()
     {
