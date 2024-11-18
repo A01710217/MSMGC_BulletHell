@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Velocidad del vehículo
     public float speed = 20.0f;
-    public float slowSpeedMultiplier = 0.5f;  // Multiplicador de velocidad para cuando se presiona Shift
+    public float slowSpeedMultiplier = 0.5f;  // Multiplicador de velocidad cuando se presiona Shift
     public GameObject bulletPrefab;  // Prefab de la bala
     public Transform bulletSpawnPoint; // Punto desde donde se dispara la bala
     public float bulletSpeed = 10f; // Velocidad de la bala
@@ -12,6 +11,14 @@ public class PlayerController : MonoBehaviour
     // Cooldown para disparar
     public float shootCooldown = 0.5f; // Tiempo entre disparos (en segundos)
     private float lastShootTime; // Tiempo del último disparo
+
+    private PlayerHealth playerHealth;  // Referencia al script de salud del jugador
+
+    void Start()
+    {
+        // Obtener el componente PlayerHealth
+        playerHealth = GetComponent<PlayerHealth>();
+    }
 
     void Update()
     {
@@ -58,5 +65,30 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("Prefab de bala o punto de disparo no asignados.");
         }
+    }
+
+    // Detecta las colisiones con los enemigos si los Colliders están en modo Trigger
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("¡El jugador ha chocado con un enemigo!");
+
+            // Aplicar daño al jugador
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(10f);  // Reducir la salud del jugador
+            }
+
+            // Destruir el enemigo después de la colisión
+            Destroy(other.gameObject);
+        }
+    }
+
+    // Método para mover al jugador a la posición deseada en el nivel del jefe
+    public void MoveToBossLevel(Vector3 targetPosition)
+    {
+        // Mover al jugador directamente a la nueva posición sin usar Rigidbody
+        transform.position = targetPosition;
     }
 }

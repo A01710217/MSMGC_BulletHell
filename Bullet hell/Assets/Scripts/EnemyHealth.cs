@@ -2,28 +2,31 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float maxHealth = 100f; // Salud máxima del enemigo
-    private float currentHealth; // Salud actual
+    public float health = 30f; // Salud del enemigo
 
-    void Start()
-    {
-        currentHealth = maxHealth; // Inicializar la salud
-    }
-
+    // Método para recibir daño
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
-        Debug.Log("Jefe recibió daño. Salud restante: " + currentHealth);
+        health -= damage;
+        Debug.Log("Salud del enemigo: " + health);
 
-        if (currentHealth <= 0)
+        // Si la salud es 0 o menor, el enemigo debe morir
+        if (health <= 0)
         {
-            Die(); // Si la salud llega a cero, el jefe muere
+            Die();
         }
     }
 
+    // Método que se llama cuando el enemigo muere
     private void Die()
     {
-        Debug.Log("¡El jefe ha muerto!");
-        Destroy(gameObject); // Destruir el objeto del jefe (o puedes hacer otro tipo de acción)
+        Debug.Log("El enemigo ha muerto!");
+        Destroy(gameObject);  // Destruir el objeto enemigo
+    }
+
+    // Método para destruir el enemigo cuando sale de la pantalla
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }
