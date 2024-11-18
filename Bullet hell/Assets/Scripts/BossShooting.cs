@@ -23,42 +23,42 @@ public class BossShooting : MonoBehaviour
     private void TimeCheck()
     {
         // Verifica si la corutina está corriendo antes de intentar iniciar una nueva
-        if (TimeManager.Hour == 1 && TimeManager.Minute == 1 && shootCoroutine == null)
+        if (TimeManager.Minute == 1 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootLine());
         }
-        else if (TimeManager.Minute == 10 && shootCoroutine != null)
+        else if (TimeManager.Minute == 5 && shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
             Debug.Log("Finalizando disparo de línea...");
             shootCoroutine = null;
         }
 
-        if (TimeManager.Hour == 1 && TimeManager.Minute == 10 && shootCoroutine == null)
+        if (TimeManager.Minute == 5 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootCircle());
         }
 
-        if (TimeManager.Hour == 1 && TimeManager.Minute == 20 && shootCoroutine != null)
+        if (TimeManager.Minute == 15 && shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
             Debug.Log("Finalizando disparo en círculo...");
             shootCoroutine = null;
         }
 
-        if (TimeManager.Hour == 1 && TimeManager.Minute == 20 && shootCoroutine == null)
+        if (TimeManager.Minute == 15 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootStar());
         }
 
-        if (TimeManager.Minute == 30 && shootCoroutine != null)
+        if (TimeManager.Minute == 25 && shootCoroutine != null)
         {
             StopCoroutine(shootCoroutine);
             Debug.Log("Finalizando disparo en estrella...");
             shootCoroutine = null;
         }
 
-        if (TimeManager.Hour == 1 && TimeManager.Minute == 30 && shootCoroutine == null)
+        if (TimeManager.Minute == 25 && shootCoroutine == null)
         {
             shootCoroutine = StartCoroutine(ShootSpiral());
         }
@@ -67,6 +67,31 @@ public class BossShooting : MonoBehaviour
         {
             StopCoroutine(shootCoroutine);
             Debug.Log("Finalizando disparo en espiral...");
+            shootCoroutine = null;
+        }
+
+        //Repetir el de circulo y estrella
+        if (TimeManager.Minute == 40 && shootCoroutine == null)
+        {
+            shootCoroutine = StartCoroutine(ShootCircle());
+        }
+
+        if (TimeManager.Minute == 50 && shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+            Debug.Log("Finalizando disparo en círculo...");
+            shootCoroutine = null;
+        }
+
+        if (TimeManager.Minute == 50 && shootCoroutine == null)
+        {
+            shootCoroutine = StartCoroutine(ShootStar());
+        }
+
+        if (TimeManager.Minute == 55 && shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+            Debug.Log("Finalizando disparo en estrella...");
             shootCoroutine = null;
         }
     }
