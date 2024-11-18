@@ -13,6 +13,7 @@ public class GameStartManager : MonoBehaviour
     public float timeToBossLevel = 30f; // Tiempo en segundos para llegar al nivel del jefe.
     private float timer = 0f; // Temporizador del juego.
 
+
     void Start()
     {
         // Asegurarse de que todo esté en el estado correcto al inicio.
@@ -26,16 +27,6 @@ public class GameStartManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameStarted)
-        {
-            timer += Time.deltaTime; // Aumentar el temporizador con el tiempo transcurrido.
-
-            // Comprobar si ya ha pasado el tiempo para cambiar al nivel del jefe.
-            if (timer >= timeToBossLevel)
-            {
-                SwitchToBossLevel();
-            }
-        }
     }
 
     public void StartGame()
@@ -52,35 +43,18 @@ public class GameStartManager : MonoBehaviour
         level1Camera.gameObject.SetActive(true);
 
         // Asegurarse de que el jugador esté en la escena y activado.
-        player.SetActive(true);
-        player.transform.position = new Vector3(-300, 0, -10); // Posición inicial del jugador.
+        if (player != null)
+        {
+            player.SetActive(true);
+            player.transform.position = new Vector3(-300, 0, -10); // Posición inicial del jugador.
+            Debug.Log("¡El jugador está activo y listo!");
+        }
+        else
+        {
+            Debug.LogError("El objeto 'player' no está en la escena o ha sido destruido.");
+        }
 
         Debug.Log("¡El juego ha comenzado!");
-    }
-
-    void SwitchToBossLevel()
-    {
-        // Cambiar las cámaras sin activar al jefe.
-        level1Camera.gameObject.SetActive(false);
-        bossCamera.gameObject.SetActive(true);
-
-        // Desactivar el Rigidbody mientras se mueve
-        Rigidbody rb = player.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true; // Desactivar física temporalmente
-        }
-
-        // Mover al jugador a la posición deseada
-        player.transform.position = new Vector3(0, 1, -20);
-
-        // Asegúrate de reactivar la física después de mover al jugador
-        if (rb != null)
-        {
-            rb.isKinematic = false; // Reactivar física
-        }
-
-        Debug.Log("Cambiando al nivel del jefe (sin activar mecánicas).");
     }
 
 }
